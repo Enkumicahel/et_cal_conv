@@ -21,7 +21,7 @@ class EthDateConverter(object):
                     </div>
                     <div>
                         <p>
-                            Required params: 
+                            Required params:
                         </p>
                         <p>
                             <span>year,</span>
@@ -29,7 +29,7 @@ class EthDateConverter(object):
                             <span>date,</span>
                         </p>
                         <p>
-                            Return value: 
+                            Return value:
                         </p>
                         <p>
                             Type (JSON) => (e.g) result: [2026, 11, 13]
@@ -41,16 +41,16 @@ class EthDateConverter(object):
                             To convert Gregorian calender to Ethiopian calender
                         </p>
                         <p>
-                            <a href='http://{}:{}/to_greg?year=2019&amp;month=03&amp;date=04'> 
-                                http://{}:{}/<strong>to_greg?year=2019&amp;month=03&amp;date=04</strong> 
+                            <a href='http://{}:{}/to_greg?year=2019&amp;month=03&amp;date=04'>
+                                http://{}:{}/<strong>to_greg?year=2019&amp;month=03&amp;date=04</strong>
                             </a>
                         </p>
                         <p>
                             To convert Ethiopian calender to Gregorian calender
                         </p>
                         <p>
-                            <a href='http://{}:{}/to_et?year=2019&amp;month=03&amp;date=04'> 
-                                http://{}:{}/<strong>to_et?year=2019&amp;month=03&amp;date=04</strong> 
+                            <a href='http://{}:{}/to_et?year=2019&amp;month=03&amp;date=04'>
+                                http://{}:{}/<strong>to_et?year=2019&amp;month=03&amp;date=04</strong>
                             </a>
                         </p>
                     </div>
@@ -67,9 +67,9 @@ class EthDateConverter(object):
         month = int(month)
         date= int(date)
         c_date = edc.to_gregorian(year, month, date)
-        print(c_date, type(c_date))
+        print(c_date, year, month, date)
         return { 'result': c_date  }
-        
+
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def to_et(self, year, month, date):
@@ -85,6 +85,9 @@ class EthDateConverter(object):
 
 
 if __name__ == '__main__':
+    from cherrypy.process.plugins import Daemonizer
+    d = Daemonizer(cherrypy.engine)
+    d.subscribe()
 
     conf = {
         '/': {
